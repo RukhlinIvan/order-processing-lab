@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Order System</title>
+</head>
+<body>
+    <h1>Create Order</h1>
+    <form id="orderForm">
+        <input type="text" id="buyer" placeholder="Buyer" required><br>
+        <input type="text" id="product" placeholder="Product" required><br>
+        <input type="number" id="amount" placeholder="Amount" required><br>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                buyer: document.getElementById('buyer').value,
+                product: document.getElementById('product').value,
+                amount: document.getElementById('amount').value
+            };
+            const res = await fetch('/api/orders', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            document.getElementById('result').innerText = `Order ID: ${result.order_id}`;
+        });
+    </script>
+</body>
+</html>
