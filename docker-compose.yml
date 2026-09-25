@@ -133,3 +133,15 @@ services:
         condition: service_healthy
     environment:
       PYTHONUNBUFFERED: 1
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8081:80"          
+    environment:
+      PMA_HOST: mysql      
+      PMA_PORT: 3306       
+      PMA_ARBITRARY: 1     
+    depends_on:
+      mysql:
+        condition: service_healthy
